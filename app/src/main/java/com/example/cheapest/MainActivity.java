@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,9 +31,12 @@ public class MainActivity extends AppCompatActivity {
         btnCalcula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String retorno = calcular(Double.valueOf(edtLitrao.getText().toString()), Double.valueOf(edtLatao.getText().toString()), Double.valueOf(edtLatinha.getText().toString()));
-                txtResposta.setText(retorno);
+                if (edtLatinha.length() == 0 || edtLatinha.length() == 0 || edtLatinha.length() == 0) {
+                    Toast.makeText(MainActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+                } else{
+                    String retorno = calcular(Double.valueOf(edtLitrao.getText().toString()), Double.valueOf(edtLatao.getText().toString()), Double.valueOf(edtLatinha.getText().toString()));
+                    Toast.makeText(MainActivity.this, retorno, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -41,62 +45,64 @@ public class MainActivity extends AppCompatActivity {
 
     public String calcular(Double litrao, Double latao, Double latinha) {
 
-        int controle=0;
-        String camponegativo="";
-        String valornulo="nulo";
-        if (litrao <= 0) {
-            controle=1;
-            camponegativo+=" Litrao";
-        }
+            int controle = 0;
+            String camponegativo = "";
 
-        if (latao <= 0 ) {
-            controle=1;
-            camponegativo+=", Latao";
-        }
-        if (latinha <= 0 ) {
-            controle=1;
-            camponegativo+=", Latinha";
-        }
 
-        if (controle == 0) {
-
-            double divLitrao = litrao / 1000;
-            double divLatao = latao / 473;
-            double divLatinha = latinha / 350;
-            double talvez = divLitrao;
-            String vai = "nada";
-            double referencia = 0;
-
-            if (talvez < divLatao) {
-                vai = "Vai de Litrão";
-            } else {
-                talvez = divLatao;
-                vai = "Vai de Latao";
-                referencia = divLatao;
-            }
-            if (talvez > divLatinha) {
-                vai = "Vai de Latinha";
-                referencia = divLatinha;
+            if (litrao <=0) {
+                controle = 1;
+                camponegativo += " Litrao";
             }
 
-            referencia = talvez;
-
-            if ((divLatao == divLatinha) & (referencia == divLatao)) {
-                vai = "Pode ir de Litrao ou Latinha";
-            } else if ((divLatao == divLitrao) & (referencia == divLatao)) {
-                vai = "Pode ir de Latao ou Litrao";
-            } else if ((divLatinha == divLitrao) & (referencia == divLatinha)) {
-                vai = "Pode ir de Latinha ou Latao";
+            if (latao <= 0) {
+                controle = 1;
+                camponegativo += ", Latao";
+            }
+            if (latinha <= 0) {
+                controle = 1;
+                camponegativo += ", Latinha";
             }
 
-            if ((divLatao == divLatinha) & (divLatao == divLitrao))
-                vai = "Tanto faz";
-            return vai;
+
+            if (controle == 0) {
+
+                double divLitrao = litrao / 1000;
+                double divLatao = latao / 473;
+                double divLatinha = latinha / 350;
+                double talvez = divLitrao;
+                String vai = "nada";
+                double referencia = 0;
+
+                if (talvez < divLatao) {
+                    vai = "Vai de Litrão";
+                } else {
+                    talvez = divLatao;
+                    vai = "Vai de Latao";
+                    referencia = divLatao;
+                }
+                if (talvez > divLatinha) {
+                    vai = "Vai de Latinha";
+                    referencia = divLatinha;
+                }
+
+                referencia = talvez;
+
+                if ((divLatao == divLatinha) & (referencia == divLatao)) {
+                    vai = "Pode ir de Litrao ou Latinha";
+                } else if ((divLatao == divLitrao) & (referencia == divLatao)) {
+                    vai = "Pode ir de Latao ou Litrao";
+                } else if ((divLatinha == divLitrao) & (referencia == divLatinha)) {
+                    vai = "Pode ir de Latinha ou Latao";
+                }
+
+                if ((divLatao == divLatinha) & (divLatao == divLitrao))
+                    vai = "Tanto faz";
+                return vai;
+            } else
+                return "Voce digitou um valor invalido no(s) campo(s):" + camponegativo;
+
+
         }
-        else
-        return "voce digitou um valor invalido nos campos:"+camponegativo;
-
-
-
     }
-}
+
+

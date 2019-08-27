@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Cheapest</string>
-    <string name="haha"> "roberta"</string>
+    <string name="valor_litr_o">Valor Litrão</string>
+    <string name="valor_latao">Valor Latao</string>
+    <string name="valor_da_latinha">Valor da Latinha</string>
+    <string name="descobrir">Descobrir</string>
 </resources>
